@@ -7,11 +7,11 @@ import { UpdateSubjetDto } from './dto/update-subjet.dto';
 import { User, UserDocument } from './schemas/user.schema';
 
 @Injectable()
-export class SubjetsService {
+export class SubjectsService {
   constructor(
     @InjectModel(Subject.name) private subjectModel: Model<UserDocument>,
     @InjectModel(User.name) private UserModel: Model<UserDocument>,
-  ) {}
+  ) { }
 
   async create(createSubjetDto: CreateSubjetDto) {
     const { user_id } = createSubjetDto;

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { Subject } from 'src/subjets/schemas/subject.schema';
+import { Subject } from 'src/subjects/schemas/subject.schema';
 
 export type topicDocument = Topic & Document;
 const importantValues: string[] = ['importante', 'no importante'];

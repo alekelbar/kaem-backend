@@ -7,15 +7,15 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { SubjetsService } from './subjets.service';
+import { SubjectsService } from './subjects.service';
 import { CreateSubjetDto } from './dto/create-subjet.dto';
 import { UpdateSubjetDto } from './dto/update-subjet.dto';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 
-@ApiTags('subjecs')
-@Controller('subjets')
-export class SubjetsController {
-  constructor(private readonly subjetsService: SubjetsService) {}
+@ApiTags('subjects')
+@Controller('subjects')
+export class SubjectsController {
+  constructor(private readonly subjetsService: SubjectsService) { }
 
   @ApiResponse({
     status: 201,

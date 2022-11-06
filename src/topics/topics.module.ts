@@ -3,7 +3,7 @@ import { TopicsService } from './topics.service';
 import { TopicsController } from './topics.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Topic, topicSchema } from './schemas/topic.schema';
-import { Subject, SubjectSchema } from 'src/subjets/schemas/subject.schema';
+import { Subject, SubjectSchema } from 'src/subjects/schemas/subject.schema';
 
 @Module({
   imports: [
@@ -13,4 +13,4 @@ import { Subject, SubjectSchema } from 'src/subjets/schemas/subject.schema';
   controllers: [TopicsController],
   providers: [TopicsService],
 })
-export class TopicsModule {}
+export class TopicsModule { }

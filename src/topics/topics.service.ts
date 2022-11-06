@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { Subject, SubjectDocument } from 'src/subjets/schemas/subject.schema';
+import { Subject, SubjectDocument } from 'src/subjects/schemas/subject.schema';
 import { CreateTopicDto } from './dto/create-topic.dto';
 import { UpdateTopicDto } from './dto/update-topic.dto';
 import { Topic, topicDocument } from './schemas/topic.schema';
@@ -11,7 +11,7 @@ export class TopicsService {
   constructor(
     @InjectModel(Topic.name) private topicModel: Model<topicDocument>,
     @InjectModel(Subject.name) private subjectModel: Model<SubjectDocument>,
-  ) {}
+  ) { }
 
   async create(createTopicDto: CreateTopicDto) {
     const { subjectId } = createTopicDto;

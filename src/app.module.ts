@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SubjetsModule } from './subjets/subjets.module';
+import { SubjetsModule } from './subjects/subjects.module';
 import { TopicsModule } from './topics/topics.module';
 
 @Module({
@@ -19,4 +19,4 @@ import { TopicsModule } from './topics/topics.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
