@@ -5,12 +5,14 @@ import { Subject } from 'rxjs';
 import { CreateSubjetDto } from './dto/create-subjet.dto';
 import { UpdateSubjetDto } from './dto/update-subjet.dto';
 import { User, UserDocument } from './schemas/user.schema';
+import { Topic, TopicDocument } from '../topics/schemas/topic.schema';
 
 @Injectable()
 export class SubjectsService {
   constructor(
     @InjectModel(Subject.name) private subjectModel: Model<UserDocument>,
     @InjectModel(User.name) private UserModel: Model<UserDocument>,
+    @InjectModel(Topic.name) private TopicModel: Model<TopicDocument>,
   ) { }
 
   async create(createSubjetDto: CreateSubjetDto) {
@@ -28,8 +30,8 @@ export class SubjectsService {
     return await this.subjectModel.create(createSubjetDto);
   }
 
-  async findAll() {
-    return await this.subjectModel.find();
+  async findAll(user_id: string) {
+    return await this.subjectModel.find({ user_id });
   }
 
   async findOne(id: string) {
@@ -70,6 +72,16 @@ export class SubjectsService {
     if (!sujectExist)
       throw new HttpException('subject does not exist', HttpStatus.BAD_REQUEST);
 
-    return await this.subjectModel.findOneAndDelete({ _id: id });
+    const del = await this.subjectModel.findOneAndDelete({ _id: id });
+    if (!del) {
+      throw new HttpException('Internal error, cannot delete it', HttpStatus.BAD_REQUEST);
+    }
+
+    try {
+      return await this.TopicModel.deleteMany({ subjectId: id });
+    } catch (error) {
+      return error;
+    }
+
   }
 }

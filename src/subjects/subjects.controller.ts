@@ -6,11 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { SubjectsService } from './subjects.service';
 import { CreateSubjetDto } from './dto/create-subjet.dto';
 import { UpdateSubjetDto } from './dto/update-subjet.dto';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { get } from 'http';
 
 @ApiTags('subjects')
 @Controller('subjects')
@@ -29,12 +31,12 @@ export class SubjectsController {
 
   @ApiResponse({ status: 200, description: 'Successfuly.' })
   @Get()
-  findAll() {
-    return this.subjetsService.findAll();
+  findAll(@Query('user') user_id: string) {
+    return this.subjetsService.findAll(user_id);
   }
 
   @ApiResponse({ status: 400, description: 'Subject invalid.' })
-  @Get(':id')
+  @Get('/one/:id')
   findOne(@Param('id') id: string) {
     return this.subjetsService.findOne(id);
   }

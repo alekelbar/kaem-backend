@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTopicDto {
@@ -6,6 +6,11 @@ export class CreateTopicDto {
   @IsString()
   @ApiProperty()
   subjectId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
+  user_id: string;
 
   @IsNotEmpty()
   @IsString()
@@ -21,6 +26,9 @@ export class CreateTopicDto {
   @IsString()
   @ApiProperty()
   deadline: string;
+
+  @ApiProperty()
+  complete: boolean;
 
   @IsNotEmpty()
   @ApiProperty()

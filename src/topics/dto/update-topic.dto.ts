@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/swagger';
 import { CreateTopicDto } from './create-topic.dto';
-import { IsArray, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateTopicDto extends PartialType(CreateTopicDto) {
@@ -8,6 +8,11 @@ export class UpdateTopicDto extends PartialType(CreateTopicDto) {
   @IsString()
   @ApiProperty()
   subjectId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
+  user_id: string;
 
   @IsNotEmpty()
   @IsString()
@@ -23,6 +28,11 @@ export class UpdateTopicDto extends PartialType(CreateTopicDto) {
   @IsString()
   @ApiProperty()
   deadline: string;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  @ApiProperty()
+  complete: boolean;
 
   @IsNotEmpty()
   @ApiProperty()

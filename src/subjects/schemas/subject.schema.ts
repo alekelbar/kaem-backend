@@ -15,10 +15,10 @@ export class Subject {
   @Prop({ required: true })
   descr: string;
 
-  @Prop({ type: Date, required: true })
+  @Prop({ required: true })
   startAt: string;
 
-  @Prop({ type: Date, required: true })
+  @Prop({ required: true })
   endAt: string;
 }
 

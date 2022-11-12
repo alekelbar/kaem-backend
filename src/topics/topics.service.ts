@@ -4,12 +4,12 @@ import mongoose, { Model } from 'mongoose';
 import { Subject, SubjectDocument } from 'src/subjects/schemas/subject.schema';
 import { CreateTopicDto } from './dto/create-topic.dto';
 import { UpdateTopicDto } from './dto/update-topic.dto';
-import { Topic, topicDocument } from './schemas/topic.schema';
+import { Topic, TopicDocument } from './schemas/topic.schema';
 
 @Injectable()
 export class TopicsService {
   constructor(
-    @InjectModel(Topic.name) private topicModel: Model<topicDocument>,
+    @InjectModel(Topic.name) private topicModel: Model<TopicDocument>,
     @InjectModel(Subject.name) private subjectModel: Model<SubjectDocument>,
   ) { }
 
@@ -28,17 +28,45 @@ export class TopicsService {
     } catch (error) {
       console.log(error);
       throw new HttpException(
-        'Database service Error ',
+        'Database service Error ' + error,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
 
-  findAll() {
-    return this.topicModel.find();
+  async complete(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id))
+      throw new HttpException('Invalid Topic', HttpStatus.BAD_REQUEST);
+
+    const topic = await this.topicModel.findById(id);
+    if (!topic)
+      throw new HttpException('Topic does not exist', HttpStatus.BAD_REQUEST);
+
+
+    return await this.topicModel.findOneAndUpdate({ _id: id }, { complete: true }, {
+      new: true,
+    });
   }
 
-  async findOne(id: number) {
+  async uncomplete(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id))
+      throw new HttpException('Invalid Topic', HttpStatus.BAD_REQUEST);
+
+    const topic = await this.topicModel.findById(id);
+    if (!topic)
+      throw new HttpException('Topic does not exist', HttpStatus.BAD_REQUEST);
+
+
+    return await this.topicModel.findOneAndUpdate({ _id: id }, { complete: false }, {
+      new: true,
+    });
+  }
+
+  findAll(user_id: string) {
+    return this.topicModel.find({ user_id });
+  }
+
+  async findOne(id: string) {
     if (!mongoose.Types.ObjectId.isValid(id))
       throw new HttpException('Invalid Topic', HttpStatus.BAD_REQUEST);
 
